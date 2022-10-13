@@ -9,36 +9,40 @@
     <h1>Pets</h1>
 </div>
 <hr>
-<div class="p-5 d-flex flex-wrap justify-content-center">
-    {% for pet in pets %}
-    <div class="card m-2" style="width: 18rem;">
-        {% if pet.image_url %}
-        <img src="{{pet.image_url}}" alt="Picture of {{pet.name}}" class="card-img-top">
-        {% else %}
-        <img src="https://www.bil-jac.com/Images/DogPlaceholder.svg" alt="Default Pet Picture" class="card-img-top">
-        {% endif %}
-        <div class="card-body">
-            <h4 class="card-title">
-                {{pet.name}}
-            </h4>
-            <p class="card-text">
-                {% if pet.available %}
-                <span class="badge badge-success">Available</span>
-                {% else %}
-                <span class="badge badge-info">Adopted</span>
-                {% endif %}
-                <br>
-                Species: <b>{{pet.species}}</b>
-                {% if pet.notes %}
-                <br>
-                <small class="card-text">
-                    {{pet.notes}}
-                </small>
-                {% endif %}
-            </p>
+<div class="p-5 row justify-content-center">
+    {% if pets %}
+    <div class="col-md-8 d-flex flex-wrap">
+        {% for pet in pets %}
+        <div class="card m-2" style="width: 18rem;">
+            {% if pet.image_url %}
+            <img src="{{pet.image_url}}" alt="Picture of {{pet.name}}" class="card-img-top">
+            {% else %}
+            <img src="https://www.bil-jac.com/Images/DogPlaceholder.svg" alt="Default Pet Picture" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{pet.name}}
+                </h4>
+                <p class="card-text">
+                    {% if pet.available %}
+                    <span class="badge badge-success">Available</span>
+                    {% else %}
+                    <span class="badge badge-info">Adopted</span>
+                    {% endif %}
+                    <br>
+                    Species: <b>{{pet.species}}</b>
+                    {% if pet.notes %}
+                    <br>
+                    <small class="card-text">
+                        {{pet.notes}}
+                    </small>
+                    {% endif %}
+                </p>
 
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
