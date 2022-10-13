@@ -22,9 +22,16 @@ def home_page():
     return render_template('home.html', pets=pets)
 
 
+@app.route('/<int:id>', methods=['GET'])
+def pet_details(id):
+    """Shows details about a specific pet"""
+    pet = Pet.query.get_or_404(id)
+    return render_template('details.html', pet=pet)
+
+
 @app.route('/add', methods=['GET', 'POST'])
 def add_pet_form():
-    """Shows a form that lets users add a new pet"""
+    """Shows a form to add a new pet"""
     form = PetForm()
 
     if form.validate_on_submit():
@@ -41,3 +48,21 @@ def add_pet_form():
         return redirect('/')
     else:
         return render_template('add-pet.html', form=form)
+
+
+@app.route('/<int:id>/edit', methods=['GET', 'POST'])
+def edit_pet_form(id):
+    """Shows a form to edit an existing pet"""
+    pet = Pet.query.get_or_404(id)
+    form = PetForm(obj=pet)
+
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.species = form.species.data
+        pet.image_url = form.image_url.data
+        pet.age = form.age.data
+        pet.notes = form.notes.data
+        db.session.commit()
+        return redirect(f'/{id}')
+    else:
+        return render_template('edit-pet.html', form=form)
