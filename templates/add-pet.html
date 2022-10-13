@@ -12,6 +12,7 @@
     {% if form %}
     <div class="col-md-9">
         <form method="post">
+            {{form.hidden_tag()}}
             {% for field in form
             if field.widget.input_type != 'hidden' %}
             <div class="form-group">
