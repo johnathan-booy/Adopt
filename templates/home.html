@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="p-5 text-center">
+<div class="pt-5 text-center">
     <h1>Pets</h1>
+    <a href="/add" class="btn btn-info">Add a Pet</a>
 </div>
-<hr>
 <div class="p-5 row justify-content-center">
     {% if pets %}
-    <div class="col-md-8 d-flex flex-wrap">
+    <div class="col-md-9 d-flex flex-wrap justify-content-center">
         {% for pet in pets %}
-        <div class="card m-2" style="width: 18rem;">
+        <div class="card m-2" style="width: 20rem;">
             {% if pet.image_url %}
             <img src="{{pet.image_url}}" alt="Picture of {{pet.name}}" class="card-img-top">
             {% else %}
@@ -45,4 +45,6 @@
     </div>
     {% endif %}
 </div>
+
+
 {% endblock %}
