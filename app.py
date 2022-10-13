@@ -35,16 +35,11 @@ def add_pet_form():
     form = PetForm()
 
     if form.validate_on_submit():
-        name = form.name.data
-        species = form.species.data
-        image_url = form.image_url.data
-        age = form.age.data
-        notes = form.notes.data
-
-        pet = Pet(name=name, species=species,
-                  image_url=image_url, age=age, notes=notes)
+        pet = Pet()
+        form.populate_obj(pet)
         db.session.add(pet)
         db.session.commit()
+        flash(f'{pet.name.title()} was successfully added!')
         return redirect('/')
     else:
         return render_template('add-pet.html', form=form)
@@ -57,12 +52,9 @@ def edit_pet_form(id):
     form = PetForm(obj=pet)
 
     if form.validate_on_submit():
-        pet.name = form.name.data
-        pet.species = form.species.data
-        pet.image_url = form.image_url.data
-        pet.age = form.age.data
-        pet.notes = form.notes.data
+        form.populate_obj(pet)
         db.session.commit()
+        flash(f'{pet.name.title()} was successfully edited!')
         return redirect(f'/{id}')
     else:
         return render_template('edit-pet.html', form=form)
