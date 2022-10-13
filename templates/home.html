@@ -1,18 +1,44 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Title</title>
+<title>Pets</title>
 {% endblock %}
 
 {% block content %}
-<div class="p-5">
-    <h1>Title</h1>
-    <h6>Subtitle</h2>
+<div class="p-5 text-center">
+    <h1>Pets</h1>
 </div>
 <hr>
-<div class="p-5">
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo, excepturi officia asperiores nulla
-        eveniet unde obcaecati deleniti autem at quibusdam! Ea veniam reiciendis iste quaerat deserunt assumenda
-        voluptatem tempora consequuntur.</p>
+<div class="p-5 d-flex flex-wrap justify-content-center">
+    {% for pet in pets %}
+    <div class="card m-2" style="width: 18rem;">
+        {% if pet.image_url %}
+        <img src="{{pet.image_url}}" alt="Picture of {{pet.name}}" class="card-img-top">
+        {% else %}
+        <img src="https://www.bil-jac.com/Images/DogPlaceholder.svg" alt="Default Pet Picture" class="card-img-top">
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">
+                {{pet.name}}
+            </h4>
+            <p class="card-text">
+                {% if pet.available %}
+                <span class="badge badge-success">Available</span>
+                {% else %}
+                <span class="badge badge-info">Adopted</span>
+                {% endif %}
+                <br>
+                Species: <b>{{pet.species}}</b>
+                {% if pet.notes %}
+                <br>
+                <small class="card-text">
+                    {{pet.notes}}
+                </small>
+                {% endif %}
+            </p>
+
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}
